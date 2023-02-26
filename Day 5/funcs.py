@@ -25,3 +25,17 @@ def findBinaryPos(bp, ub, lmc):
     # correct for rows being 0-indexed
     ub -= 1
     return ub
+
+
+# p2 solution
+# returns -1 if missing seat not found
+def findMissingSeat(seatidl):
+    # iterate through sorted list and
+    # find gap that == 2
+    for pos in range(len(seatidl)-1):
+        # if gap of 2 found => return missing seat id (+1)
+        if seatidl[pos+1] - seatidl[pos] == 2:
+            return seatidl[pos] + 1
+
+    # error
+    return -1
