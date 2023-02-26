@@ -39,3 +39,51 @@ def findMissingSeat(seatidl):
 
     # error
     return -1
+
+
+# DOES NOT WORK
+# Hitting max recruse limit
+# but I think that's because of an error
+def quicksort_list(lb, ub, arr):
+    if lb >= ub:
+        return
+
+    lptr = lb
+    pivot = ub
+    rptr = pivot - 1
+
+    swap = 0
+    while (1):
+        # move lptr (find value < pivot)
+        while (arr[lptr] < arr[pivot]):
+            # print("%d is not less than %d" % (arr[lptr], arr[pivot]))
+            lptr += 1
+        while (arr[rptr] > arr[pivot] and rptr >= 0):
+            rptr -= 1
+
+        # cache lptr value
+        swap = arr[lptr]
+        if lptr >= rptr:
+            # if lptr has passed or is equal to rptr
+            # swap lptr with pivot and terminate loop
+            arr[lptr] = arr[pivot]
+            arr[pivot] = swap
+            break
+        else:
+            # if values are equal => increment both (no need to swap)
+            if arr[lptr] == arr[rptr]:
+                lptr += 1
+                rptr -= 1
+            else:
+                arr[lptr] = arr[rptr]
+                arr[rptr] = swap
+
+    # recrusive calls
+    # sort bottom half
+    if lptr > 0:
+        new_ub = lptr - 1
+        quicksort_list(lb, new_ub, arr)
+    if lptr < len(arr)-1:
+        new_lb = lptr + 1
+        quicksort_list(new_lb, ub, arr)
+    return

@@ -28,7 +28,11 @@ print("The highest unique seat id found is %d." % greatest_bp)
 
 # p2
 # sort list
-seatidl.sort()
+# seatidl.sort()
+
+# custom quick sort imp (working)
+ub = len(seatidl)-1
+funcs.quicksort_list(0, ub, seatidl)
 
 my_seat = funcs.findMissingSeat(seatidl)
 if my_seat == -1:
