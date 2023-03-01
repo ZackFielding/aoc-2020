@@ -20,6 +20,11 @@ def main():
     bag_count = funcs.countBagsThatHold(dview, "shiny gold")
     print("{} bags can hold a \"shiny gold\" bag".format(bag_count))
 
+    # p2 solution
+    sub_bag_count = (funcs.r_countSubBags(bags_dict, "shiny gold") - 1)
+    print(("{} bags contained in a single \"shiny gold\" bag"
+           .format(sub_bag_count)))
+
 
 if __name__ == "__main__":
     main()

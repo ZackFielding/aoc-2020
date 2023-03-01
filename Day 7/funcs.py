@@ -89,19 +89,30 @@ def getNextBag(q, visited):
             return ""
 
 
+# recrusive function
+def r_countSubBags(d, bag_of_interest):
+    # base case [if no sub bags => return 1 so count*bag != 0]
+    if len(d[bag_of_interest].bag_set) == 0:
+        # print("... base case ....")
+        return 1
+
+    # get instance from dictionary
+    inst = d[bag_of_interest]
+
+    sub_sum = 0
+    for b in inst.bag_set:
+        sub_sum += (r_countSubBags(d, b) *
+                    inst.num_bag_dict[b])
+
+    return sub_sum+1
+
+
 # abstraction of each bag (name && other bags it can hold)
 class bag:
     def __init__(self, id_arg):
         self.id = id_arg
-        self.num_bag_list = []
+        self.num_bag_dict = {}
         self.bag_set = set()
-
-    # setters
-    def append_bag_list(self, num):
-        self.num_bag_list.append(num)
-
-    def append_bag_set(self, s_bag):
-        self.bag_set.add(s_bag)
 
     def createBagListAndSet(self, slice):
         # find each pos in `line` which .isdecimal() returns True
@@ -109,10 +120,10 @@ class bag:
 
         # get slices of each bag string
         # (ignore position return from getSplice())
-        # create tuple of (number of bags, type of bag)
         for i_instance in dli:
-            self.num_bag_list.append(int(slice[i_instance]))
-            self.bag_set.add(getSplice(slice, i_instance+2)[0])
+            bag_str = getSplice(slice, i_instance+2)[0]
+            self.num_bag_dict[bag_str] = int(slice[i_instance])
+            self.bag_set.add(bag_str)
 
     @staticmethod
     def findDecimalInstances(string):
